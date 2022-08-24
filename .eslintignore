@@ -1,0 +1,4 @@
+postcss.config.cjs
+tailwind.config.cjs
+svelte.config.js
+vite.config.ts

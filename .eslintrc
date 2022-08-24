@@ -1,0 +1,52 @@
+{
+	"env": {
+		"browser": true,
+		"es2021": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:svelte/recommended"
+	],
+	"overrides": [
+		{
+			"files": ["*.svelte"],
+			"parser": "svelte-eslint-parser",
+      "parserOptions": {
+        "parser": "@typescript-eslint/parser"
+      }
+		}
+	],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"project": "./tsconfig.json",
+		"extraFileExtensions": [".svelte"]
+	},
+	"plugins": [
+		"@typescript-eslint"
+	],
+	"rules": {
+		"comma-dangle": ["warn", "always-multiline"],
+		"indent": ["error", 2],
+		"linebreak-style": ["error", "unix"],
+		"quotes": ["error", "double"],
+		"semi": ["error", "never"],
+		"svelte/html-self-closing": ["error", "all"],
+		"svelte/html-closing-bracket-spacing": [
+			"error", {
+				"startTag": "never",
+				"endTag": "never",
+				"selfClosingTag": "always"
+			}
+		],
+		"svelte/button-has-type": [
+			"error", {
+				"button": true,
+				"submit": true,
+				"reset": true
+			}
+		]
+	},
+  "settings": {
+    "svelte3/typescript": true
+  }
+}

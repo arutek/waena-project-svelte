@@ -1,5 +1,5 @@
 import apiCall from "./api-call"
-import cookie from "../factories/cookie"
+import cookie from "@/factories/cookie"
 import { useNavigate } from "@solidjs/router"
 
 const authUrl = `${import.meta.env.VITE_APP_API}/auth`

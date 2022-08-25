@@ -31,6 +31,7 @@
 		"quotes": ["error", "double"],
 		"semi": ["error", "never"],
 		"svelte/html-self-closing": ["error", "all"],
+		"svelte/html-quotes": ["error", {"prefer": "double"}],
 		"svelte/html-closing-bracket-spacing": [
 			"error", {
 				"startTag": "never",

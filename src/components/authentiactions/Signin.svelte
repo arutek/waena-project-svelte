@@ -7,7 +7,7 @@
   </form>
   <p class="text-1sm">
     Not a Member yet?
-    <a href={`${routeParser.routeParser($location)}/signup`} use:link class="text-sky-500 cursor-pointer">Sign up</a>
+    <a href={`${beforeUrl}/signup`} use:link class="text-sky-500 cursor-pointer">Sign up</a>
   </p>
 </main>
 
@@ -18,7 +18,8 @@
   import auth from "@/libraries/auth"
 
   let email = ""
-  let password= ""
+  let password = ""
+  const beforeUrl = routeParser.routeBefore($location)
   const signin = async () => {
     const payload = {
       email: email,

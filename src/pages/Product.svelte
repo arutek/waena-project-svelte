@@ -5,7 +5,7 @@
       <div class=" bg-white shadow m-8">
         <div class="flex flex-row justify-between p-4">
           <input class="input" placeholder="Search" />
-          <a href="/add-product" use:link class="button btn-primary">Add Product</a>
+          <a href={`${currentUrl}/add`} use:link class="button btn-primary">Add Product</a>
         </div>
         <Table headList={headerList} list={products} />
         <div class="flex flex-row py-8 items-center">
@@ -29,10 +29,12 @@
 
 <script lang="ts">
   import Table from "@/components/commons/Table.svelte"
+  import routeParser from "@/factories/route-parser"
   import mock from "@/libraries/mock.json"
-  import {link} from "svelte-spa-router"
+  import {link, location} from "svelte-spa-router"
   import {fade} from "svelte/transition"
 
+  const currentUrl = routeParser.routeNow($location)
   const products = mock.getProducts
   const headerList = [
     {name: "name", value: "Product", type: "WIMG"},

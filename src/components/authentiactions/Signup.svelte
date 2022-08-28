@@ -7,7 +7,7 @@
     <input bind:value={confPass} type="password" id="conf-pass-field" class="input mb-8 w-full" placeholder="Confirm Password" />
     <button type="button" class="button btn-primary w-full">Sign Up</button>
   </form>
-  <p class="text-1sm">Already registered? <a href={`${routeParser.routeParser($location)}/signin`} use:link class="text-sky-500 cursor-pointer">Sign in</a></p>
+  <p class="text-1sm">Already registered? <a href={`${beforeUrl}/signin`} use:link class="text-sky-500 cursor-pointer">Sign in</a></p>
 </main>
 
 <script lang="ts">
@@ -20,6 +20,7 @@
   let email = ""
   let password = ""
   let confPass = ""
+  const beforeUrl = routeParser.routeBefore($location)
   const signup = async () => {
     const payload = {
       email: email,

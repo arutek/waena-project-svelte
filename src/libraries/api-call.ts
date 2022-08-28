@@ -29,7 +29,7 @@ export default {
     const res = await fetch(url, {
       method: "GET",
       headers: {
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     })
     const resBody = await res.json()
@@ -47,10 +47,28 @@ export default {
     if (!res.ok) throw resBody
     return resBody
   },
-  async loggedPost (url:string, payload:Object) {
+  async loggedPost (url:string, payload:object) {
+    const token = cookie.getCookie("accessToken")
     const res = await fetch(url, {
       method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify(payload),
+    })
+    const resBody = await res.json()
+    if (resBody.errors) throw new Error(resBody.errors[0])
+    if (!res.ok) throw resBody
+    return resBody
+  },
+  async uploadFile (url:string, payload:BodyInit) {
+    const token = cookie.getCookie("accessToken")
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: payload,
     })
     const resBody = await res.json()
     if (resBody.errors) throw new Error(resBody.errors[0])

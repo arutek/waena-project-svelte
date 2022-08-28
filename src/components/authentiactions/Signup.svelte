@@ -1,16 +1,38 @@
 <main in:fade>
   <h5 class="font-bold text-black">Sign Up</h5>
-  <div class="py-4 text-1sm">
-    <input type="text" id="username-field" class="input mb-8 w-full" placeholder="Username" />
-    <input type="text" id="email-field" class="input mb-8 w-full" placeholder="Email" />
-    <input type="password" id="password-field" class="input mb-8 w-full" placeholder="Password" />
-    <input type="password" id="conf-pass-field" class="input mb-8 w-full" placeholder="Confirm Password" />
+  <form on:submit|preventDefault={signup} class="py-4 text-1sm">
+    <input bind:value={username} type="text" id="username-field" class="input mb-8 w-full" placeholder="Username" />
+    <input bind:value={email} type="text" id="email-field" class="input mb-8 w-full" placeholder="Email" />
+    <input bind:value={password} type="password" id="password-field" class="input mb-8 w-full" placeholder="Password" />
+    <input bind:value={confPass} type="password" id="conf-pass-field" class="input mb-8 w-full" placeholder="Confirm Password" />
     <button type="button" class="button btn-primary w-full">Sign Up</button>
-  </div>
-  <p class="text-1sm">Already registered? <a href="/signin" use:link class="text-sky-500 cursor-pointer">Sign in</a></p>
+  </form>
+  <p class="text-1sm">Already registered? <a href={`${routeParser.routeParser($location)}/signin`} use:link class="text-sky-500 cursor-pointer">Sign in</a></p>
 </main>
 
 <script lang="ts">
-  import {link} from "svelte-spa-router"
+  import routeParser from "@/factories/route-parser"
+  import {link, location, push} from "svelte-spa-router"
   import {fade} from "svelte/transition"
+  import auth from "@/libraries/auth"
+  
+  let username = ""
+  let email = ""
+  let password = ""
+  let confPass = ""
+  const signup = async () => {
+    const payload = {
+      email: email,
+      username: username,
+      password: password,
+      confPass: confPass,
+    }
+    try {
+      await auth.signup(payload)
+      console.log("signup success")
+      push("/signin")
+    } catch (err) {
+      console.error(`Signup Err: ${err.message}`)
+    }
+  }
 </script>

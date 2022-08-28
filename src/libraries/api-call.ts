@@ -15,58 +15,46 @@ export default {
     if (param) {
       url = paramParser.paramParser(url, param)
     }
-    try {
-      const res = await fetch(url)
-      const resBody = await res.json()
-      if (!res.ok) throw resBody
-      return resBody
-    } catch (err:any) {
-      return err
-    }
+    const res = await fetch(url)
+    const resBody = await res.json()
+    if (resBody.errors) throw new Error(resBody.errors[0])
+    if (!res.ok) throw new Error(resBody)
+    return resBody
   },
   async loggedGet (url:string, param?:object) {
     if (param) {
       url = paramParser.paramParser(url, param)
     }
-    try {
-      const token = cookie.getCookie("accessToken")
-      const res = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Authorization": `Bearer ${token}`,
-        },
-      })
-      const resBody = await res.json()
-      if (!res.ok) throw resBody
-      return resBody
-    } catch (err:any) {
-      return err
-    }
+    const token = cookie.getCookie("accessToken")
+    const res = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+    })
+    const resBody = await res.json()
+    if (resBody.errors) throw new Error(resBody.errors[0])
+    if (!res.ok) throw resBody
+    return resBody
   },
   async postData (url:string, payload:Object) {
-    try {
-      const res = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(payload),
-      })
-      const resBody = await res.json()
-      if (!res.ok) throw resBody
-      return resBody
-    } catch (err:any) {
-      return err
-    }
+    const res = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(payload),
+    })
+    const resBody = await res.json()
+    if (resBody.errors) throw new Error(resBody.errors[0])
+    if (!res.ok) throw resBody
+    return resBody
   },
   async loggedPost (url:string, payload:Object) {
-    try {
-      const res = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(payload),
-      })
-      const resBody = await res.json()
-      if (!res.ok) throw resBody
-      return resBody
-    } catch (err:any) {
-      return err
-    }
+    const res = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(payload),
+    })
+    const resBody = await res.json()
+    if (resBody.errors) throw new Error(resBody.errors[0])
+    if (!res.ok) throw resBody
+    return resBody
   },
 }

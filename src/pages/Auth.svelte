@@ -29,5 +29,5 @@
   import SignupSvelte from "@/components/authentiactions/Signup.svelte"
   import {location} from "svelte-spa-router"
   
-  let routeName = $location.split("/")
+  $:routeName = $location.split("/")
 </script>

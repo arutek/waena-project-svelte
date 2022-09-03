@@ -13,9 +13,9 @@
         {#each headList as header}
           <td class="py-4">
             {#if header.type === "IMG"}
-              <img src={item["img"]} alt="product-img" class="mx-auto mb-2" />
+              <img src={item["thumbnail"]} alt="product-img" class="mx-auto mb-2" />
             {:else if header.type === "WIMG"}
-              <img src={item["img"]} alt="product-img" class="mx-auto mb-2" />
+              <img src={item["thumbnail"]} alt="product-img" class="mx-auto mb-2" />
               <p>{item[header.name]}</p>
             {:else if header.type === "CUR"}
               <p>{Intl.NumberFormat("id-ID", ({style: "currency", currency: "IDR"})).format(item[header.name])}</p>
@@ -24,10 +24,10 @@
             {:else if header.type === "RATE"}
               <p>{item[header.name]}</p>
             {:else if header.type === "LABEL"}
-              {#if item[header.name].toLowerCase() === "ready"}
-                <p class="text-1sm text-white bg-green-500 rounded-full w-fit px-4 py-1 mx-auto">{item[header.name]}</p>
+              {#if (item[header.name]).name.toLowerCase() === "active"}
+                <p class="text-1sm text-white bg-green-500 rounded-full w-fit px-4 py-1 mx-auto">{item[header.name].name}</p>
               {:else}
-                <p class="text-1sm text-white bg-neutral-500 rounded-full w-fit px-4 py-1 mx-auto">{item[header.name]}</p>
+                <p class="text-1sm text-white bg-neutral-500 rounded-full w-fit px-4 py-1 mx-auto">{item[header.name].name}</p>
               {/if}
             {:else}
               <p>{item[header.name]}</p>
@@ -49,16 +49,18 @@
     value: string,
     type: string,
   }
+  interface statusType {
+    id:number,
+    name:string,
+  }
   interface listType {
-    id: number,
-    img: string,
-    name: string,
-    sku: string,
-    qty: number,
-    price: number,
-    rating: number,
-    statusId: number,
-    status: string,
+    id:number,
+    sku:string,
+    name:string,
+    thumbnail:string,
+    quantity:number,
+    sellPrice:number,
+    status:statusType,
   }
   /* props */
   export let headList:headListType[]

@@ -74,7 +74,6 @@
         </div>
       </div>
       <div class="flex justify-end gap-8 m-8">
-        <p>img: {productImage}</p>
         <button type="button" on:click={cancel}>Cancel</button>
         <button type="button" on:click={addProduct} class="button btn-primary">Add Product</button>
       </div>

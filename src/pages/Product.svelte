@@ -28,20 +28,29 @@
 </main>
 
 <script lang="ts">
+  import {onMount} from "svelte"
   import Table from "@/components/commons/Table.svelte"
   import routeParser from "@/factories/route-parser"
-  import mock from "@/libraries/mock.json"
   import {link, location} from "svelte-spa-router"
   import {fade} from "svelte/transition"
+  import product from "@/libraries/product"
+
+  let products = []
+  onMount(async() => {
+    try {
+      const res = await product.getProducts()
+      products = res.data
+    } catch (err) {
+      console.error(`Get Product Statuses err: ${err.message}`)
+    }
+  })
 
   const currentUrl = routeParser.routeNow($location)
-  const products = mock.getProducts
   const headerList = [
     {name: "name", value: "Product", type: "WIMG"},
     {name: "sku", value: "SKU", type: "TEXT"},
-    {name: "qty", value: "Quantity", type: "NUM"},
-    {name: "price", value: "Price", type: "CUR"},
-    {name: "rating", value: "Rating", type: "RATE"},
+    {name: "quantity", value: "Quantity", type: "NUM"},
+    {name: "sellPrice", value: "Price", type: "CUR"},
     {name: "status", value: "Status", type: "LABEL"},
   ]
 </script>

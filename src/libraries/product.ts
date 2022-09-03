@@ -9,6 +9,9 @@ export default {
   async addProduct (payload:object) {
     return await apiCall.loggedPost(`${authUrl}`, payload)
   },
+  async getProducts () {
+    return await apiCall.loggedGet(`${authUrl}`)
+  },
   async getProductStatuses () {
     return await apiCall.loggedGet(`${authUrl}/statuses`)
   },

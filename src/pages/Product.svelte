@@ -8,17 +8,19 @@
           <a href={`${currentUrl}/add`} use:link class="button btn-primary">Add Product</a>
         </div>
         <Table headList={headerList} list={products} />
-        <div class="flex flex-row py-8 items-center">
-          <p class="basis-4/12 mx-auto">Total: {products.length}</p>
-          <div class="basis-4/12 flex flex-row text-center mx-auto">
-            <p>1</p>
-            <p>2</p>
+        {#if products.length > 0}
+          <div class="flex flex-row py-8 items-center">
+            <p class="basis-4/12 mx-auto">Total: {products.length}</p>
+            <div class="basis-4/12 flex flex-row text-center mx-auto">
+              <p>1</p>
+              <p>2</p>
+            </div>
+            <select class="input mx-auto">
+              <option>10</option>
+              <option>20</option>
+            </select>
           </div>
-          <select class="input mx-auto">
-            <option>10</option>
-            <option>20</option>
-          </select>
-        </div>
+        {/if}
       </div>
       <footer class="pl-8">
         ©2022 Arutek

@@ -61,6 +61,20 @@ export default {
     if (!res.ok) throw resBody
     return resBody
   },
+  async loggedPut (url:string, payload:object) {
+    const token = cookie.getCookie("accessToken")
+    const res = await fetch(url, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(payload),
+    })
+    const resBody = await res.json()
+    if (resBody.errors) throw new Error(resBody.errors[0])
+    if (!res.ok) throw resBody
+    return resBody
+  },
   async uploadFile (url:string, payload:BodyInit) {
     const token = cookie.getCookie("accessToken")
     const res = await fetch(url, {

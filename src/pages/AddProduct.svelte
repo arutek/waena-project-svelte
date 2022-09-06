@@ -4,26 +4,24 @@
     <section id="main-content" class="relative top-14 right-0 basis-10/12 m-8">
       <div class="grid grid-cols-12 gap-8">
         <div class="col-span-4">
-          <CardSvelte title={"QR"}>
-            <div class="flex flex-col mb-4 items-center">
-              <label class="relative w-56 h-56 shadow-xl">
-                <div class="absolute flex items-center justify-center right-0 translate-x-4 -translate-y-4 shadow rounded-full cursor-pointer bg-white hover:bg-slate-100 w-8 h-8">
-                  <i class="text-1sm aru-icon-edit" />
+          {#if currentUrl.includes("edit")}
+            <CardSvelte title={"QR"}>
+              <div class="flex flex-col mb-4 items-center">
+                <div class="relative w-56 h-56 shadow-xl">
+                  <div class="absolute flex items-center justify-center right-0 translate-x-4 -translate-y-4 shadow rounded-full cursor-pointer bg-white hover:bg-slate-100 w-8 h-8">
+                    <i class="text-1sm aru-icon-edit" />
+                  </div>
+                  {#if !qr}
+                    <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="upload-placeholder" />
+                  {:else}
+                    <img src={`${storageUrl}/${qr}`} class="object-contain w-56 h-56" alt="upload-placeholder" />
+                  {/if}
                 </div>
-                {#if !image}
-                  <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="upload-placeholder" />
-                {:else}
-                  <img src={image} class="object-contain w-56 h-56" alt="upload-placeholder" />
-                {/if}
-                <input type="file" id="productImage" accept={accFiles()} bind:files={uploadedImage} on:change={(e) => imageSelected(e)} hidden />
-              </label>
-              <p class="text-center font-light mb-4">
-                Set the product thumbnail image.
-                <br />Only accepted PNG, JPG, JPEG files
-              </p>
-              <button type="reset" class="button btn-primary">Remove Image</button>
-            </div>
-          </CardSvelte>
+                <p>{qr}</p>
+                <button type="button" class="button btn-primary" on:click={genQr}>Generate QR</button>
+              </div>
+            </CardSvelte>
+          {/if}
           <CardSvelte title={"Thumbnail"}>
             <div class="flex flex-col mb-4 items-center">
               <label class="relative w-56 h-56 shadow-xl">
@@ -95,7 +93,11 @@
       </div>
       <div class="flex justify-end gap-8 m-8">
         <button type="button" on:click={cancel}>Cancel</button>
-        <button type="button" on:click={addProduct} class="button btn-primary">Add Product</button>
+        {#if currentUrl.includes("edit")}
+          <button type="button" on:click={updateProduct} class="button btn-primary">Update Product</button>
+        {:else}
+          <button type="button" on:click={addProduct} class="button btn-primary">Add Product</button>
+        {/if}
       </div>
       <footer class="pl-8">
         ©2022 Arutek
@@ -118,6 +120,7 @@
   }
 
   let image
+  let qr
   let uploadedImage
   let productName
   let productSku
@@ -127,19 +130,33 @@
   let productStatuses:productStatus[] = []
   let statusSelected:number
   let productImage
+  
+  const storageUrl = import.meta.env.VITE_STORAGE_URL
+  const currentUrl = routeParser.routeNow($location)
+  const beforeUrl = routeParser.routeBefore($location)
+  const routeParams = routeParser.paramParse($location, "edit") 
 
   onMount(async() => {
     try {
-      const res = await product.getProductStatuses()
-      productStatuses = res.data
+      if (currentUrl.includes("edit")) {
+        const res1 = await product.getProductDetails(routeParams[0])
+        productName = res1.data[0].name
+        productSku = res1.data[0].sku
+        qr = res1.data[0].qr
+        productQuantity = res1.data[0].quantity
+        productPrice = res1.data[0].sellPrice
+        productCost = res1.data[0].productionCost
+        statusSelected = res1.data[0].status.id
+        image = res1.data[0].thumbnail
+      }
+      const res2 = await product.getProductStatuses()
+      productStatuses = res2.data
     } catch (err) {
       console.error(`Get Product Statuses err: ${err.message}`)
     }
   })
-
-  const beforeUrl = routeParser.routeBefore($location)
   const cancel = () => {
-    push(beforeUrl)
+    push("/app/product")
   }
   const accFileList = [
     "image/jpeg",
@@ -169,21 +186,49 @@
       console.error(`Upload Product Image err: ${err.message}`)
     }
   }
+  const genQr = async () => {
+    try {
+      const res = await product.getProductQr(routeParams[0])
+      qr = res.data
+      console.log(qr)
+    } catch (err) {
+      console.error(`Generate Product QR Err: ${err.message}`)
+    }
+  }
   const addProduct = async () => {
     const payload = {
       name: productName,
       sku: productSku,
       thumbnail: productImage,
+      qr: qr,
       quantity: productQuantity,
       sellPrice: productPrice,
-      prodcutionCost: productCost,
-      statusID: statusSelected,
+      productionCost: productCost,
+      statusId: statusSelected,
     }
     try {
       await product.addProduct(payload)
       push(beforeUrl)
     } catch (err) {
       console.error(`Add Product Err: ${err.message}`)
+    }
+  }
+  const updateProduct = async () => {
+    const payload = {
+      name: productName,
+      sku: productSku,
+      thumbnail: productImage,
+      qr: qr,
+      quantity: productQuantity,
+      sellPrice: productPrice,
+      productionCost: productCost,
+      statusId: statusSelected,
+    }
+    try {
+      await product.updateProduct(routeParams[0] ,payload)
+      push("/app/product")
+    } catch (err) {
+      console.error(`Update Product Err: ${err.message}`)
     }
   }
 </script>

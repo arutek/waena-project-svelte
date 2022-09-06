@@ -40,7 +40,7 @@
             </td>
           {/each}
           <td class="py-4">
-            <i class="aru-icon-edit rounded hover:bg-neutral-100 p-2" />
+            <i on:click={() => push(`${currentUrl}/edit/${item.id}`)} class="aru-icon-edit rounded hover:bg-neutral-100 p-2" />
             <i class="aru-icon-trash rounded hover:bg-neutral-100 p-2" />
           </td>
         </tr>
@@ -50,7 +50,11 @@
 </table>
 
 <script lang="ts">
+  import routeParser from "@/factories/route-parser"
+  import {location, push} from "svelte-spa-router"
+
   const storageUrl = import.meta.env.VITE_STORAGE_URL
+  const currentUrl = routeParser.routeNow($location)
   interface headListType {
     name: string,
     value: string,

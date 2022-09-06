@@ -14,7 +14,7 @@
   import "./assets/icons/aru-icon.scss"
   import apiCall from "@/libraries/api-call"
   import cookie from "@/factories/cookie"
-  import AddProduct from "./pages/AddProduct.svelte"
+  import PublicProduct from "./pages/PublicProduct.svelte"
   
   const authUrl = `${import.meta.env.VITE_APP_API}/auth`
   const isAuthorized = async () => {
@@ -70,6 +70,6 @@
       component: AuthRoute,
       conditions: [notAuthorized],
     }),
-    "/coba": AddProduct,
+    "/public/product/:id/:sku": PublicProduct,
   }
 </script>

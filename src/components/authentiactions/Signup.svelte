@@ -5,7 +5,7 @@
     <input bind:value={email} type="text" id="email-field" class="input mb-8 w-full" placeholder="Email" />
     <input bind:value={password} type="password" id="password-field" class="input mb-8 w-full" placeholder="Password" />
     <input bind:value={confPass} type="password" id="conf-pass-field" class="input mb-8 w-full" placeholder="Confirm Password" />
-    <button type="button" class="button btn-primary w-full">Sign Up</button>
+    <button type="submit" class="button btn-primary w-full">Sign Up</button>
   </form>
   <p class="text-1sm">Already registered? <a href={`${beforeUrl}/signin`} use:link class="text-sky-500 cursor-pointer">Sign in</a></p>
 </main>
@@ -31,7 +31,7 @@
     try {
       await auth.signup(payload)
       console.log("signup success")
-      push("/signin")
+      push(`${beforeUrl}/signin`)
     } catch (err) {
       console.error(`Signup Err: ${err.message}`)
     }

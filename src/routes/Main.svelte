@@ -23,5 +23,6 @@
     }),
     "/product": ProductSvelte,
     "/product/add": AddProductSvelte,
+    "/product/edit/:id": AddProductSvelte,
   }
 </script>

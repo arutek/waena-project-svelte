@@ -4,6 +4,26 @@
     <section id="main-content" class="relative top-14 right-0 basis-10/12 m-8">
       <div class="grid grid-cols-12 gap-8">
         <div class="col-span-4">
+          <CardSvelte title={"QR"}>
+            <div class="flex flex-col mb-4 items-center">
+              <label class="relative w-56 h-56 shadow-xl">
+                <div class="absolute flex items-center justify-center right-0 translate-x-4 -translate-y-4 shadow rounded-full cursor-pointer bg-white hover:bg-slate-100 w-8 h-8">
+                  <i class="text-1sm aru-icon-edit" />
+                </div>
+                {#if !image}
+                  <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="upload-placeholder" />
+                {:else}
+                  <img src={image} class="object-contain w-56 h-56" alt="upload-placeholder" />
+                {/if}
+                <input type="file" id="productImage" accept={accFiles()} bind:files={uploadedImage} on:change={(e) => imageSelected(e)} hidden />
+              </label>
+              <p class="text-center font-light mb-4">
+                Set the product thumbnail image.
+                <br />Only accepted PNG, JPG, JPEG files
+              </p>
+              <button type="reset" class="button btn-primary">Remove Image</button>
+            </div>
+          </CardSvelte>
           <CardSvelte title={"Thumbnail"}>
             <div class="flex flex-col mb-4 items-center">
               <label class="relative w-56 h-56 shadow-xl">

@@ -3,7 +3,13 @@
   <form on:submit|preventDefault={signin} class="py-4 text-1sm">
     <input type="text" bind:value={email} id="email-field" class="input mb-8 w-full" placeholder="Email" />
     <input type="password" bind:value={password} id="password-field" class="input mb-8 w-full" placeholder="Password" />
-    <button type="submit" class="button btn-primary w-full">Sign In</button>
+    <button type="submit" class="button btn-primary w-full" disabled={isLoading}>
+      {#if !isLoading}
+        <p>Sign In</p>
+      {:else}
+        <LoadingButtonSvelte />
+      {/if}
+    </button>
   </form>
   <p class="text-1sm">
     Not a Member yet?
@@ -16,11 +22,15 @@
   import {fade} from "svelte/transition"
   import routeParser from "@/factories/route-parser"
   import auth from "@/libraries/auth"
+  import LoadingButtonSvelte from "@/components/partials/LoadingButton.svelte"
+  import notification from "@/factories/notification"
 
-  let email = ""
-  let password = ""
+  let email:string
+  let password:string
+  let isLoading = false
   const beforeUrl = routeParser.routeBefore($location)
   const signin = async () => {
+    isLoading = true
     const payload = {
       email: email,
       password: password,
@@ -29,7 +39,9 @@
       await auth.signin(payload)
       replace("/app")
     } catch (err:any) {
-      console.error(`Signin Err: ${err.message}`)
+      notification.notifError(`Signin Err: ${err.message}`)
+    } finally {
+      isLoading = false
     }
   }
 </script>

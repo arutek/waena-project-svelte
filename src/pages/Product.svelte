@@ -36,6 +36,8 @@
   import {link, location} from "svelte-spa-router"
   import {fade} from "svelte/transition"
   import product from "@/libraries/product"
+  import notification from "@/factories/notification"
+  
 
   let products = []
   onMount(async() => {
@@ -43,13 +45,14 @@
       const res = await product.getProducts()
       products = res.data
     } catch (err) {
-      console.error(`Get Product Statuses err: ${err.message}`)
+      notification.notifError(`Get Product Statuses err: ${err.message}`)
     }
   })
 
   const currentUrl = routeParser.routeNow($location)
   const headerList = [
-    {name: "name", value: "Product", type: "WIMG"},
+    {name: "qr", value: "QR Code", type: "IMG"},
+    {name: "name", imageKey: "thumbnail", value: "Product", type: "WIMG"},
     {name: "sku", value: "SKU", type: "TEXT"},
     {name: "quantity", value: "Quantity", type: "NUM"},
     {name: "sellPrice", value: "Price", type: "CUR"},

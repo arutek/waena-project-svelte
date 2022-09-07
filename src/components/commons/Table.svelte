@@ -18,9 +18,9 @@
           {#each headList as header}
             <td class="py-4">
               {#if header.type === "IMG"}
-                <img src={`${storageUrl}/${item["thumbnail"]}`} alt="product-img" class="mx-auto mb-2" />
+                <img src={`${storageUrl}/${item[header.name]}`} alt="product-img" class="w-32 h-32 mx-auto" />
               {:else if header.type === "WIMG"}
-                <img src={`${storageUrl}/${item["thumbnail"]}`} alt="product-img" class="mx-auto mb-2" />
+                <img src={`${storageUrl}/${item[header.imageKey]}`} alt="product-img" class="w-32 h-32 mx-auto mb-2" />
                 <p>{item[header.name]}</p>
               {:else if header.type === "CUR"}
                 <p>{Intl.NumberFormat("id-ID", ({style: "currency", currency: "IDR"})).format(item[header.name])}</p>
@@ -58,6 +58,7 @@
   interface headListType {
     name: string,
     value: string,
+    imageKey?: string,
     type: string,
   }
   interface statusType {
@@ -69,6 +70,7 @@
     sku:string,
     name:string,
     thumbnail:string,
+    qr:string,
     quantity:number,
     sellPrice:number,
     status:statusType,

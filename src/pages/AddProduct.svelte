@@ -31,7 +31,7 @@
                 {#if !image}
                   <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="upload-placeholder" />
                 {:else}
-                  <img src={image} class="object-contain w-56 h-56" alt="upload-placeholder" />
+                  <img src={`${storageUrl}/${image}`} class="object-contain w-56 h-56" alt="upload-placeholder" />
                 {/if}
                 <input type="file" id="productImage" accept={accFiles()} bind:files={uploadedImage} on:change={(e) => imageSelected(e)} hidden />
               </label>
@@ -113,6 +113,7 @@
   import {location, push} from "svelte-spa-router"
   import routeParser from "@/factories/route-parser"
   import product from "@/libraries/product"
+  import notification from "@/factories/notification"
 
   interface productStatus {
     id: number,
@@ -148,6 +149,7 @@
         productCost = res1.data[0].productionCost
         statusSelected = res1.data[0].status.id
         image = res1.data[0].thumbnail
+        productImage = res1.data[0].thumbnail
       }
       const res2 = await product.getProductStatuses()
       productStatuses = res2.data
@@ -183,7 +185,7 @@
       const res = await product.addProductImage(formData)
       productImage = res.data
     } catch (err) {
-      console.error(`Upload Product Image err: ${err.message}`)
+      notification.notifWarn(`Upload Product Image err: ${err.message}`)
     }
   }
   const genQr = async () => {
@@ -192,7 +194,7 @@
       qr = res.data
       console.log(qr)
     } catch (err) {
-      console.error(`Generate Product QR Err: ${err.message}`)
+      notification.notifWarn(`Generate Product QR Err: ${err.message}`)
     }
   }
   const addProduct = async () => {
@@ -210,7 +212,7 @@
       await product.addProduct(payload)
       push(beforeUrl)
     } catch (err) {
-      console.error(`Add Product Err: ${err.message}`)
+      notification.notifError(`Add Product Err: ${err.message}`)
     }
   }
   const updateProduct = async () => {
@@ -228,7 +230,7 @@
       await product.updateProduct(routeParams[0] ,payload)
       push("/app/product")
     } catch (err) {
-      console.error(`Update Product Err: ${err.message}`)
+      notification.notifError(`Update Product Err: ${err.message}`)
     }
   }
 </script>

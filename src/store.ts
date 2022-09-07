@@ -7,3 +7,4 @@ interface notiType {
 }
 const init:notiType[] = []
 export const toastData = writable(init)
+export const coba = writable("test")

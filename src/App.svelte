@@ -1,7 +1,10 @@
 <svelte:head>
   <title>Waena Project</title>
 </svelte:head>
-<Router {routes} />
+<body>
+  <ToastSvelte />
+  <Router {routes} />
+</body>
 
 <script lang="ts">
   import Router, {replace} from "svelte-spa-router"
@@ -15,6 +18,7 @@
   import apiCall from "@/libraries/api-call"
   import cookie from "@/factories/cookie"
   import PublicProduct from "./pages/PublicProduct.svelte"
+  import ToastSvelte from "./components/partials/Toast.svelte"
   
   const authUrl = `${import.meta.env.VITE_APP_API}/auth`
   const isAuthorized = async () => {

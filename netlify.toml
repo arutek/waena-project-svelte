@@ -1,2 +1,2 @@
 [build]
-  command = "pnpm build || ( npm install pnpm && pnpm build )"
+  command = "cp .env.sta && (pnpm build || ( npm install pnpm && pnpm build ))"

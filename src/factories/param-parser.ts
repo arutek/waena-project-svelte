@@ -5,6 +5,6 @@ export default {
     params.forEach((item) => {
       url += `${item[0]}=${item[1]}&`
     })
-    return url[url.length - 1]
+    return url.slice(0, url.length - 1)
   },
 }

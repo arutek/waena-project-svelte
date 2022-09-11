@@ -5,7 +5,7 @@ export default {
     const payload = {
       message: errMsg,
       type: "notifError",
-      timeout: 2500,
+      timeout: 5000,
     }
     toastData.update(store => [...store, payload])
   },
@@ -13,7 +13,7 @@ export default {
     const payload = {
       message: errMsg,
       type: "notifWarn",
-      timeout: 2500,
+      timeout: 5000,
     }
     toastData.update(store => [...store, payload])
   },
@@ -21,7 +21,7 @@ export default {
     const payload = {
       message: errMsg,
       type: "notifSuccess",
-      timeout: 2500,
+      timeout: 5000,
     }
     toastData.update(store => [...store, payload])
   },

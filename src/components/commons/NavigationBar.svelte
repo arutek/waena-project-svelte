@@ -6,7 +6,10 @@
     </span>
   </div>
   <ul class="text-neutral-400">
-    <li class="px-6 py-2 hover:bg-slate-900">Menu 1</li>
-    <li class="px-6 py-2 hover:bg-slate-900">Menu 2</li>
+    <li class={$location === "/app/product" ? "px-6 py-2 bg-slate-900" : "px-6 py-2 hover:bg-slate-900"} on:click={() => push("/app/product")}>Products</li>
   </ul>
 </nav>
+
+<script lang="ts">
+  import {location, push} from "svelte-spa-router"
+</script>

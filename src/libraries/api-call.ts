@@ -37,6 +37,25 @@ export default {
     if (!res.ok) throw resBody
     return resBody
   },
+  async loggedDl (url:string, param?:object) {
+    if (param) {
+      url = paramParser.paramParser(url, param)
+    }
+    const token = cookie.getCookie("accessToken")
+    const res = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    const resBody = await res.blob()
+    const blobUrl = URL.createObjectURL(resBody)
+    setTimeout(() => {
+      URL.revokeObjectURL(blobUrl)
+    }, 500)
+    if (!res.ok) throw resBody
+    return blobUrl
+  },
   async postData (url:string, payload:Object) {
     const res = await fetch(url, {
       method: "POST",

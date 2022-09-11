@@ -1,10 +1,10 @@
 @font-face {font-family: "aru-icon";
-  src: url('aru-icon.eot?t=1662477590315'); /* IE9*/
-  src: url('aru-icon.eot?t=1662477590315#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url("aru-icon.woff2?t=1662477590315") format("woff2"),
-  url("aru-icon.woff?t=1662477590315") format("woff"),
-  url('aru-icon.ttf?t=1662477590315') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('aru-icon.svg?t=1662477590315#aru-icon') format('svg'); /* iOS 4.1- */
+  src: url('aru-icon.eot?t=1662878645829'); /* IE9*/
+  src: url('aru-icon.eot?t=1662878645829#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url("aru-icon.woff2?t=1662878645829") format("woff2"),
+  url("aru-icon.woff?t=1662878645829") format("woff"),
+  url('aru-icon.ttf?t=1662878645829') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('aru-icon.svg?t=1662878645829#aru-icon') format('svg'); /* iOS 4.1- */
 }
 
 [class^="aru-icon-"], [class*=" aru-icon-"] {
@@ -28,8 +28,9 @@
 .aru-icon-loading:before { content: "\ea0c"; }
 .aru-icon-message:before { content: "\ea0d"; }
 .aru-icon-more:before { content: "\ea0e"; }
-.aru-icon-star:before { content: "\ea0f"; }
-.aru-icon-trash:before { content: "\ea10"; }
+.aru-icon-pdf:before { content: "\ea0f"; }
+.aru-icon-star:before { content: "\ea10"; }
+.aru-icon-trash:before { content: "\ea11"; }
 
 $aru-icon-angle-down: "\ea01";
 $aru-icon-angle-left: "\ea02";
@@ -45,6 +46,7 @@ $aru-icon-eye: "\ea0b";
 $aru-icon-loading: "\ea0c";
 $aru-icon-message: "\ea0d";
 $aru-icon-more: "\ea0e";
-$aru-icon-star: "\ea0f";
-$aru-icon-trash: "\ea10";
+$aru-icon-pdf: "\ea0f";
+$aru-icon-star: "\ea10";
+$aru-icon-trash: "\ea11";
 

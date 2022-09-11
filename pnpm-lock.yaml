@@ -20,9 +20,6 @@ specifiers:
   vite: ^3.0.7
   vite-plugin-eslint: ^1.8.1
 
-dependencies:
-  svelte-spa-router: 3.3.0
-
 devDependencies:
   '@sveltejs/vite-plugin-svelte': 1.0.2_svelte@3.49.0+vite@3.0.9
   '@tsconfig/svelte': 3.0.0
@@ -36,6 +33,7 @@ devDependencies:
   svelte: 3.49.0
   svelte-check: 2.8.1_f4ocuume5qq4kteljx4yno44ge
   svelte-preprocess: 4.10.7_vg6ducirvwwyf55jrdrmsrrkvq
+  svelte-spa-router: 3.3.0
   tailwindcss: 3.1.8_postcss@8.4.16
   tslib: 2.4.0
   typescript: 4.7.4
@@ -1502,7 +1500,7 @@ packages:
   /regexparam/2.0.1:
     resolution: {integrity: sha512-zRgSaYemnNYxUv+/5SeoHI0eJIgTL/A2pUtXUPLHQxUldagouJ9p+K6IbIZ/JiQuCEv2E2B1O11SjVQy3aMCkw==}
     engines: {node: '>=8'}
-    dev: false
+    dev: true
 
   /regexpp/3.2.0:
     resolution: {integrity: sha512-pq2bWo9mVD43nbts2wGv17XLiNLya+GklZ8kaDLV2Z08gDCsGpnKn9BFMepvWuHCbyVvY7J5o5+BVvoQbmlJLg==}
@@ -1763,7 +1761,7 @@ packages:
     resolution: {integrity: sha512-cwRNe7cxD43sCvSfEeaKiNZg3FCizGxeMcf7CPiWRP3jKXjEma3vxyyuDtPOam6nWbVxl9TNM3hlE/i87ZlqcQ==}
     dependencies:
       regexparam: 2.0.1
-    dev: false
+    dev: true
 
   /svelte/3.49.0:
     resolution: {integrity: sha512-+lmjic1pApJWDfPCpUUTc1m8azDqYCG1JN9YEngrx/hUyIcFJo6VZhj0A1Ai0wqoHcEIuQy+e9tk+4uDgdtsFA==}

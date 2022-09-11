@@ -5,7 +5,12 @@
       <div class=" bg-white shadow m-8">
         <div class="flex flex-row justify-between p-4">
           <input class="input" placeholder="Search" />
-          <a href={`${currentUrl}/add`} use:link class="button btn-primary">Add Product</a>
+          <div class="flex gap-4">
+            <button type="button" on:click={generatePdf} class="button btn-primary">
+              <span><i class="aru-icon-pdf" /> Generate PDF</span>
+            </button>
+            <button type="button" on:click={() => push(`${currentUrl}/add`)} class="button btn-primary">Add Product</button>
+          </div>
         </div>
         <Table headList={headerList} list={products} />
         {#if products.length > 0}
@@ -33,22 +38,13 @@
   import {onMount} from "svelte"
   import Table from "@/components/commons/Table.svelte"
   import routeParser from "@/factories/route-parser"
-  import {link, location} from "svelte-spa-router"
+  import {push, location} from "svelte-spa-router"
   import {fade} from "svelte/transition"
   import product from "@/libraries/product"
   import notification from "@/factories/notification"
   
 
   let products = []
-  onMount(async() => {
-    try {
-      const res = await product.getProducts()
-      products = res.data
-    } catch (err) {
-      notification.notifError(`Get Product Statuses err: ${err.message}`)
-    }
-  })
-
   const currentUrl = routeParser.routeNow($location)
   const headerList = [
     {name: "qr", value: "QR Code", type: "IMG"},
@@ -58,4 +54,23 @@
     {name: "sellPrice", value: "Price", type: "CUR"},
     {name: "status", value: "Status", type: "LABEL"},
   ]
+
+  onMount (async() => {
+    try {
+      const res = await product.getProducts()
+      products = res.data
+    } catch (err) {
+      notification.notifError(`Error Get Product Statuses: ${err.message}`)
+    }
+  })
+
+  const generatePdf = async() => {
+    try {
+      const res = await product.getProductListPdf()
+      console.log(res)
+      window.open(res)
+    } catch (err) {
+      notification.notifError(`Error generate PDF: ${err.message}`)
+    }
+  }
 </script>

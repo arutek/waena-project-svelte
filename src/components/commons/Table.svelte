@@ -36,7 +36,7 @@
                 {/if}
               {:else}
                 <p>{item[header.name]}</p>
-              {/if}  
+              {/if}
             </td>
           {/each}
           <td class="py-4">
